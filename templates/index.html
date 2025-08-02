@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Data & News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Market Data & News Aggregator</h1>
+        <p class="subtitle">Your one-stop dashboard for financial data and news.</p>
+
+        <div id="errors" class="error-message"></div>
+
+        <div class="input-section">
+            <label for="stockSymbols" class="visually-hidden">Enter stock symbols (comma-separated)</label>
+            <input type="text" id="stockSymbols" placeholder="Enter stock symbols (e.g., AAPL, MSFT, GOOGL)" required>
+            <button id="fetchData">Fetch Data</button>
+        </div>
+
+        <div class="data-section">
+            <div class="stock-section">
+                <h2>Stock Data</h2>
+                <div class="controls">
+                    <input type="text" id="stockSearch" class="search-input" placeholder="Search stocks...">
+                </div>
+                <div id="stockTable">
+                    <!-- Stock data table will be inserted here -->
+                </div>
+            </div>
+
+            <div class="news-section">
+                <h2>Financial News</h2>
+                <div class="controls">
+                    <input type="text" id="newsSearch" class="search-input" placeholder="Search news...">
+                </div>
+                <div id="newsArticles">
+                    <!-- News articles will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
