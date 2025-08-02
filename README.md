@@ -4,12 +4,13 @@ A Flask-based web application that provides real-time stock market data and rela
 
 ## Features
 
-- Real-time stock price data from Alpha Vantage API
-- Financial news aggregation from NewsAPI
-- Responsive web interface
-- Caching for improved performance
-- Load balancer support with Nginx
-- Production-ready deployment configurations
+- **Stock Market Dashboard**: Enter multiple stock symbols (comma-separated) to get real-time data
+- **Real-time Stock Data**: Price, change, and volume information from Alpha Vantage API
+- **Financial News**: Relevant news articles from NewsAPI for entered stocks
+- **Search Functionality**: Search through stock data and news articles
+- **Responsive Design**: Works on desktop and mobile devices
+- **Performance Optimized**: Caching and concurrent API requests
+- **Production Ready**: Load balancer support with Nginx
 
 ## Prerequisites
 
@@ -296,13 +297,18 @@ gunicorn -c gunicorn.conf.py wsgi:app
 ### 1. Basic Functionality Test
 
 ```bash
-# Test application health
+# Test main dashboard
 curl http://localhost:8080/
 
-# Test stock API endpoint
+# Test stock data fetch (main endpoint used by dashboard)
+curl -X POST http://localhost:8080/get_stock_data \
+  -H "Content-Type: application/json" \
+  -d '{"symbols": "AAPL,MSFT"}'
+
+# Test individual stock endpoint
 curl http://localhost:8080/api/stock/AAPL
 
-# Test news API endpoint
+# Test news endpoint
 curl http://localhost:8080/api/news
 ```
 
@@ -448,14 +454,25 @@ sudo netstat -tulpn | grep :8080
 sudo systemctl status stock-app
 ```
 
+## How to Use the Dashboard
+
+1. **Enter Stock Symbols**: Type stock symbols separated by commas (e.g., AAPL, MSFT, GOOGL)
+2. **Click Fetch Data**: The dashboard will retrieve:
+   - Real-time stock prices, changes, and volume
+   - Related financial news articles
+3. **Search & Filter**: Use the search boxes to filter stock data and news
+4. **View Results**: 
+   - Stock data appears in a sortable table
+   - News articles show with titles, descriptions, and publication dates
+
 ## API Endpoints
 
-- `GET /` - Main application interface
-- `GET /api/stock/<symbol>` - Get stock data for specific symbol
+- `GET /` - Main dashboard interface
+- `POST /get_stock_data` - Fetch multiple stocks data and news (JSON: {"symbols": "AAPL,MSFT"})
+- `GET /api/stock/<symbol>` - Get individual stock data
 - `GET /api/news` - Get general financial news
-- `GET /api/news/<symbol>` - Get news for specific stock symbol
-- `POST /get_stock_data` - Get multiple stocks data (JSON payload)
-- `GET /health` - Health check endpoint
+- `GET /api/news/<symbol>` - Get news for specific stock
+- `GET /health` - Health check endpoint (for load balancer)
 
 ## Security Considerations
 

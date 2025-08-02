@@ -10,7 +10,7 @@ import time
 print("[DEBUG] Loading environment variables...")
 load_dotenv()
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+app = Flask(__name__, static_folder='.', template_folder='.')
 CORS(app)
 
 # Configure caching (5 minute timeout)
