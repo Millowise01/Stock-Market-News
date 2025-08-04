@@ -293,6 +293,6 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 8080))
+    port = int(os.getenv('PORT', 10000))
     print(f"[DEBUG] Starting app on port {port}")
     app.run(host='0.0.0.0', port=port, debug=False)
